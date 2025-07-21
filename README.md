@@ -1,2 +1,106 @@
 # interneuron-microscopy-analysis
-Analysis of confocal microscopy images of immunohistochemically stained spinal cord tissue for interneuron numbers and distribution.
+
+_Code written by Dr Eleni Christoforidou._
+
+This repository contains the full analysis pipeline built with ImageJ macros and MATLAB functions used to quantify interneuron numbers and spatial distribution from confocal microscopy images of immunohistochemically stained mouse spinal cord tissue.
+
+# Overview
+
+The workflow comprises two major stages:
+
+- Image processing in ImageJ/Fiji (.ijm macros)
+
+    - Pre-processing of Z-stacks (max projection, orientation correction, tissue alignment)
+
+    - Manual ROI definition (gray matter, cell bodies)
+
+    - Automated extraction of cell centroids and measurements (distance to central canal, colocalisation)
+
+- Data aggregation & analysis in MATLAB (.m functions)
+
+    - Angle transformation for laterality correction
+
+    - Assembly of master tables for distances and angles
+
+    - Statistical analyses (linear & circular statistics)
+
+    - Generation of heatmaps, polar plots, and confidence interval graphs
+
+All macros must be run first (in numeric order), followed by all MATLAB functions (also in numeric order). This ensures correct staging of data outputs and avoids mismatches.
+
+**For an explanation of what each code file does, how to run it, and what outputs are generated, refer to the description at the top of each individual code file.**
+
+# Prerequisites
+
+- Fiji/ImageJ (version ≥2.0) with standard Java runtime.
+
+- MATLAB (tested in R2024b) with:
+
+    - CircStat Toolbox for circular statistics
+
+    - Image Processing Toolbox (for mask registration and heatmap generation)
+
+# Usage
+
+- Run ImageJ macros (in Fiji):
+
+    - Open each .ijm file in Fiji's Script Editor and click Run
+
+    - Execute macros in ascending numeric order (1 → 14)
+
+    - Inspect and, where required, manually draw ROIs as prompted by macros 4, 5, and 12
+
+- Run MATLAB functions:
+
+    - Open MATLAB and add the project folder to your path
+
+    - Run each function in numeric order (F1 → F18)
+
+    - Review generated figures and tables in the MATLAB workspace and output/ folder
+
+# Output
+
+- Most ImageJ macros and MATLAB function generate output files (e.g., .csv, .svg) which are stored in the folder being analysed.
+
+# Hardcoded Elements and Data Structure
+
+This analysis pipeline is tailored specifically to the dataset used in the associated manuscript and includes the following hardcoded components:
+
+**1. Genotype and Section Level Mapping**
+
+The MATLAB functions contain a hardcoded mapping of each mouse ID to its genotype. This mapping reflects the exact cohort analysed in the study; modifying or adding new mouse IDs requires updating these mappings in the corresponding functions. The functions also contain a hardcoded mapping of each section ID to its lumbar level in the spinal cord (L3-L6).
+
+**2. Image Channel Assignment**
+
+All confocal images were acquired on a Leica SP8 microscope as four-channel z-stack TIFFs. Each channel corresponds to a distinct immunolabelled cell population.
+
+The ImageJ macros assume a precise channel ordering when extracting cell positional information. To adapt the pipeline to different channel assignments, the macros must be edited accordingly.
+
+**3. Input Folder Structure**
+
+The macros and MATLAB scripts traverse a fixed directory hierarchy. The base folder should be organised as follows:
+
+base_folder/
+  MouseID_001/          ← Mouse ID subfolders (hardcoded IDs must match)
+    Section_01/         ← Section ID subfolders (hardcoded IDs must match)
+      imageA.tiff       ← Channel 1 image
+      imageB.tiff       ← Channel 2 image
+      ...
+    Section_02/
+      ...
+  MouseID_002/
+    ...
+
+Images are processed in ascending numeric order of mouse IDs, then section IDs, then filenames. Deviations from this structure will require updates to the macro file-load routines.
+
+# License
+This code is released under the Apache License 2.0. Please see the LICENSE file for details. By using this code, you agree to the terms of the Apache License 2.0, which grants explicit patent rights and requires that any redistributed or derivative works include the original copyright and attribution notices.
+
+# Manuscript Association
+This repository contains the code and complete dataset used in a research article submitted fro publication in an open-access peer-reviewed journal. A citation link will be provided upon official publication of the article.
+
+# Citation
+If you use this code for your research, please cite it using the Zenodo DOI provided here: 
+
+# Disclaimer
+The code provided herein has not been peer-reviewed and may contain errors. Users are encouraged to test the code thoroughly and verify its accuracy for their specific applications. The author is not responsible for any errors or inaccuracies in the results generated by this script.
