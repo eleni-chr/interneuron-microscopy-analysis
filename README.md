@@ -2,7 +2,7 @@
 
 _Code written by Dr Eleni Christoforidou._
 
-This repository contains the full analysis pipeline built with ImageJ macros and MATLAB functions used to quantify interneuron numbers and spatial distribution from confocal microscopy images of immunohistochemically stained mouse spinal cord tissue.
+This repository contains the full analysis pipeline built with ImageJ macros and MATLAB functions used to quantify interneuron density and spatial distribution within the gray matter of the spinal cord from confocal microscopy images of immunohistochemically stained mouse tissue.
 
 # Overview
 
