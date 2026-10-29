@@ -1,4 +1,4 @@
-# interneuron-microscopy-analysis
+# Analysis of microscopy images of spinal cord tissue for interneuron numbers and distribution
 
 _Code written by Dr Eleni Christoforidou._
 
